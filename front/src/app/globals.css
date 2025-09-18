@@ -24,6 +24,25 @@ h1, h2, h3, h4, h5, h6 {
 /* Custom scrollbar for modern browsers */
 
 
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+.animate-flicker {
+  animation: flicker 2s infinite;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+.animate-flash {
+  animation: flash 1.5s infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce 3s infinite;
+}
 
 
 

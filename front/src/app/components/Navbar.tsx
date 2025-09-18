@@ -94,7 +94,7 @@ export default function Navbar() {
                 height={70}
                 // filter + brightness utilities: darker by default, slightly darker when scrolled
                 className={`w-50 sm:w-30 md:w-65 transition-all duration-300 filter ${
-                  scrolled ? "brightness-110" : "brightness-110"
+                  scrolled ? "brightness-130" : "brightness-130"
                 }`}
                 priority
               />

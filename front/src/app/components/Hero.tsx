@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import { FireExtinguisher, Zap, Users, Headphones } from "lucide-react";
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,10 +13,10 @@ export default function Hero() {
   }, []);
 
   const stats = [
-    { number: 25, label: "Years Experience" },
-    { number: 1000, label: "Systems Installed" },
-    { number: 500, label: "Happy Clients" },
-    { number: 24, label: "7 Support Availability" },
+    { number: 25, label: "Years Experience", icon: FireExtinguisher, animation: "animate-flicker" },
+    { number: 1000, label: "Systems Installed", icon: Zap, animation: "animate-flash" },
+    { number: 500, label: "Happy Clients", icon: Users, animation: "animate-bounce-slow" },
+    { number: 24, label: "7 Support Availability", icon: Headphones, animation: "animate-pulse" },
   ];
 
   const [ref, inView] = useInView({
@@ -26,7 +27,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full flex flex-col justify-center items-center text-center overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 px-4 sm:px-6 lg:px-8 min-h-screen"
+      className="relative w-full flex flex-col justify-center items-center text-center overflow-hidden pt-24 sm:pt-28 md:pt-36 lg:pt-40 px-4 sm:px-6 lg:px-8 min-h-screen"
     >
       {/* Background Video */}
       <video
@@ -48,7 +49,7 @@ export default function Hero() {
 
       {/* Hero Content */}
       <div
-        className={`relative z-10 max-w-5xl mx-auto mt-5 pb-3 text-white transform transition-all duration-1000 ${
+        className={`relative z-10 max-w-5xl mx-auto mt-5 pb-4 text-white transform transition-all duration-1000 ${
           isLoaded ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
         }`}
       >
@@ -97,35 +98,55 @@ export default function Hero() {
         {/* Stats Section */}
         <div
           ref={ref}
-          className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-4xl mx-auto mt-8 sm:mt-12 mb-16 sm:mb-20"
+          className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-4xl mx-auto mt-8 sm:mt-12 md:mt-16 mb-16 sm:mb-20 md:mb-24"
         >
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 hover:scale-105 hover:-translate-y-1 shadow-lg"
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="text-3xl sm:text-4xl font-black mb-1 text-white drop-shadow">
-                {inView ? (
-                  <CountUp
-                    end={stat.number}
-                    duration={3}
-                    suffix={stat.number >= 500 ? "+" : ""}
-                  />
-                ) : (
-                  0
-                )}
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <div
+                key={index}
+                className="flex flex-col items-center p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 hover:scale-105 hover:-translate-y-1 shadow-lg"
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                {/* Icon */}
+                <Icon
+                  className={`w-10 h-10 mb-3 text-red-500 drop-shadow-lg ${stat.animation}`}
+                />
+
+                {/* Number */}
+                <div className="text-3xl sm:text-4xl font-black mb-1 text-white drop-shadow">
+                  {inView ? (
+                    stat.label.includes("Support") ? (
+                      <span className="flex items-center gap-1">
+                        <span className="text-red-500 animate-pulse">
+                          <CountUp end={stat.number} duration={2.5} />
+                        </span>
+                        <span className="text-white">/7</span>
+                      </span>
+                    ) : (
+                      <CountUp
+                        end={stat.number}
+                        duration={3}
+                        suffix={stat.number >= 500 ? "+" : ""}
+                      />
+                    )
+                  ) : (
+                    0
+                  )}
+                </div>
+
+                {/* Label */}
+                <p className="text-sm sm:text-base font-medium text-white/80 text-center">
+                  {stat.label}
+                </p>
               </div>
-              <p className="text-sm sm:text-base font-medium text-white/80 text-center">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+      <div className="absolute bottom-0 md:bottom-10 lg:bottom-1 left-1/2 transform -translate-x-1/2">
         <div className="flex flex-col items-center gap-2">
           <span className="text-white/70 text-xs sm:text-sm font-medium">
             Scroll Down
@@ -138,3 +159,6 @@ export default function Hero() {
     </section>
   );
 }
+
+/* Tailwind custom animations (add to globals.css)
+------------------------------------------------- */
