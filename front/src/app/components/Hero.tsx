@@ -13,7 +13,7 @@ export default function Hero() {
   }, []);
 
   const stats = [
-    { number: 25, label: "Years Experience", icon: FireExtinguisher, animation: "animate-flicker" },
+    { number: 25, label: "Years Experience", icon: FireExtinguisher, animation: "animate-wiggle" },
     { number: 1000, label: "Systems Installed", icon: Zap, animation: "animate-flash" },
     { number: 500, label: "Happy Clients", icon: Users, animation: "animate-bounce-slow" },
     { number: 24, label: "7 Support Availability", icon: Headphones, animation: "animate-pulse" },
@@ -160,5 +160,3 @@ export default function Hero() {
   );
 }
 
-/* Tailwind custom animations (add to globals.css)
-------------------------------------------------- */

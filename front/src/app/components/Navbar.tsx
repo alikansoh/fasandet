@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,11 +40,8 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
+      setScrolled(currentScroll > 50);
 
-      // set scrolled (used to add background)
-      setScrolled(currentScroll > 50); // change threshold as you like
-
-      // hide/show navbar when not in mobile menu
       if (!mobileMenuOpen) {
         if (currentScroll > lastScroll.current && currentScroll > 100) {
           setHidden(true);
@@ -76,7 +74,9 @@ export default function Navbar() {
     <>
       {/* Navbar */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"} transition-colors`}
+        className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ${
+          hidden ? "-translate-y-full" : "translate-y-0"
+        } transition-colors`}
         aria-hidden={hidden}
       >
         <div
@@ -85,25 +85,24 @@ export default function Navbar() {
           }`}
         >
           <div className="flex justify-between items-center py-2 sm:py-3 md:py-4">
-            {/* Logo */}
-            <div className="flex items-center">
+            {/* Logo (clickable) */}
+            <Link href="#home" className="flex items-center">
               <Image
                 src="/logo.png"
                 alt="FireSafe Pro Logo"
                 width={150}
                 height={70}
-                // filter + brightness utilities: darker by default, slightly darker when scrolled
                 className={`w-50 sm:w-30 md:w-65 transition-all duration-300 filter ${
                   scrolled ? "brightness-130" : "brightness-130"
                 }`}
                 priority
               />
-            </div>
+            </Link>
 
             {/* Desktop Nav */}
             <div className="hidden md:flex space-x-6 lg:space-x-10">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   className={`relative font-medium transition-colors duration-200 text-white ${
@@ -113,7 +112,7 @@ export default function Navbar() {
                   }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
 
@@ -150,19 +149,21 @@ export default function Navbar() {
         {/* Menu Links */}
         <div className="flex flex-col space-y-10">
           {navLinks.map((link, index) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={`text-3xl sm:text-4xl font-semibold transition-all duration-500 transform ${
                 mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
               } ${
-                activeLink === link.href ? "text-red-500 underline underline-offset-4" : "text-white hover:text-gray-300"
+                activeLink === link.href
+                  ? "text-red-500 underline underline-offset-4"
+                  : "text-white hover:text-gray-300"
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
