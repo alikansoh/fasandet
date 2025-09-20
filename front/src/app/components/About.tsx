@@ -175,7 +175,6 @@ const About: FC = () => {
                 enableDamping={true}
                 dampingFactor={0.05}
                 rotateSpeed={0.8}
-                touchAction="none"
               />
             </Canvas>
           </motion.div>
