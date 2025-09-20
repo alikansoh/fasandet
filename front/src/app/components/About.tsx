@@ -122,14 +122,14 @@ const About: FC = () => {
 
   return (
     <section className="relative w-full min-h-screen bg-black text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-6"
+          className="text-center mb-4 sm:mb-6"
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
             About <span className="text-red-500">Us</span>
@@ -142,10 +142,10 @@ const About: FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
           {/* ===== Left - 3D Fire Alarm Button Canvas ===== */}
           <motion.div
-            className="w-full h-[500px] md:h-[600px] rounded-xl overflow-hidden shadow-2xl"
+            className="w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-xl overflow-hidden shadow-2xl touch-pan-y"
             onHoverStart={() => setHover(true)}
             onHoverEnd={() => setHover(false)}
           >
@@ -169,12 +169,19 @@ const About: FC = () => {
                 </mesh>
               )}
 
-              <OrbitControls enableZoom={false} enablePan={false} />
+              <OrbitControls 
+                enableZoom={false} 
+                enablePan={false} 
+                enableDamping={true}
+                dampingFactor={0.05}
+                rotateSpeed={0.8}
+                touchAction="none"
+              />
             </Canvas>
           </motion.div>
 
           {/* ===== Right - Features ===== */}
-                      <div className="grid gap-4">
+                      <div className="grid gap-3 sm:gap-4">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -184,7 +191,7 @@ const About: FC = () => {
                     scale: 1.05,
                     boxShadow: "0 25px 50px -12px rgba(239,68,68,0.25)",
                   }}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md shadow-lg relative overflow-hidden"
+                  className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md shadow-lg relative overflow-hidden"
                 >
                   <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-red-500 text-white">
                     <Icon className="w-6 h-6" />
@@ -198,7 +205,7 @@ const About: FC = () => {
             })}
 
             {/* ===== Call-to-Action Button ===== */}
-            <motion.div whileHover={{ scale: 1.05 }} className="mt-4">
+            <motion.div whileHover={{ scale: 1.05 }} className="mt-3 sm:mt-4">
               <a
                 href="#contact"
                 className="inline-block px-8 py-4 bg-red-500 text-white font-semibold rounded-xl shadow-lg hover:bg-red-600 transition"
